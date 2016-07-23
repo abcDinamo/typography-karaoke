@@ -1,13 +1,13 @@
 {
-  "name": "Essential React",
-  "description": "A minimal skeleton for building testable React apps using Babel",
+  "name": "Typography Karaoke",
+  "description": "A prototype showing Karaoke-style cues using HTML5 Audio/Video and WebVTT",
   "keywords": [
     "react",
     "babel",
     "starter"
   ],
-  "repository": "https://github.com/pheuter/essential-react",
-  "logo": "https://dl.dropboxusercontent.com/u/1803181/essential-react-logo.png",
+  "repository": "https://github.com/mhgbrown/typography-karaoke",
+  "logo": "",
   "env": {
     "PRODUCTION": "true",
     "NPM_CONFIG_PRODUCTION": "false"

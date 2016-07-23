@@ -1,0 +1,20 @@
+.cue {
+  -webkit-font-smoothing: antialiased;
+}
+
+.children {
+  display: inline-block;
+  position: relative;
+  white-space: pre;
+}
+
+.overlay {
+  pointer-events: none;
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: -0.5rem;
+  overflow: hidden;
+  color: #f90 !important;
+}
+

@@ -1,35 +1,8 @@
-![](https://dl.dropboxusercontent.com/u/1803181/essential-react-logo.png)
+# Typography Karaoke
 
-[![Travis branch](https://img.shields.io/travis/pheuter/essential-react.svg?style=flat-square)](https://travis-ci.org/pheuter/essential-react)
-[![Coveralls](https://img.shields.io/coveralls/pheuter/essential-react.svg?style=flat-square)](https://coveralls.io/r/pheuter/essential-react)
-[![David](https://img.shields.io/david/pheuter/essential-react.svg?style=flat-square)](https://david-dm.org/pheuter/essential-react)
-[![npm](https://img.shields.io/npm/v/essential-react.svg?style=flat-square)](https://www.npmjs.com/package/essential-react)
+A simple prototype showing Karaoke-style cues using HTML5 Audio/Video and WebVTT.
 
----
-
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
-
-A minimal skeleton for building testable React apps using Babel.
-
-- [Design Goals](#design-goals)
-- [Getting Started](#getting-started)
-- [Commands](#commands)
-  - [server](#server)
-  - [build](#build)
-  - [test](#test)
-  - [coveralls](#coveralls)
-  - [clean](#clean)
-- [Changelog](#changelog)
-
-## Design Goals
-
-- Use fewer tools (no yeoman, gulp, bower, etc...)
-- Babel 6 with Webpack and Hot Loader
-- Fast testing with mocked-out DOM
-- Import css files as class names
-- Separate [Smart and Dumb](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0) components
-- No specific implementation of Flux or data fetching patterns
-
+Based on [react-vtt](https://github.com/ChineseCubes/react-vtt) and [Essential React](https://github.com/pheuter/essential-react)
 
 ## Getting Started
 
