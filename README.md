@@ -77,5 +77,3 @@ $ npm run clean
 **Input:** `build/app.js`
 
 Removes the compiled app file from build.
-
-## [Changelog](CHANGELOG.md)
