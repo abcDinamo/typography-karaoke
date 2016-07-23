@@ -9,7 +9,8 @@
     "build": "webpack -p --progress --config webpack.production.config.js",
     "test": "nyc ava --fail-fast --verbose --require babel-register",
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
-    "clean": "rm build/app.js"
+    "clean": "rm build/app.js",
+    "deploy": "git subtree push --prefix build origin gh-pages"
   },
   "repository": {
     "type": "git",

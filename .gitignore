@@ -1,6 +1,6 @@
 # Build
-build/app.js
-build/style.css
+build/*
+!build/index.html
 
 # Logs
 logs
