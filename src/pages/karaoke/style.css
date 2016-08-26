@@ -1,0 +1,13 @@
+.content {
+  /*display: inline-block;*/
+  /*vertical-align: middle;*/
+}
+
+.welcomeText {
+  font-size: 20px;
+  color: #7F7F7F;
+}
+
+.video {
+  display: none;
+}

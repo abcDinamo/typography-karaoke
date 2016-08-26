@@ -1,13 +1,19 @@
-.content {
-  /*display: inline-block;*/
-  /*vertical-align: middle;*/
+/* cool stuff */
+.directory {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
-.welcomeText {
-  font-size: 20px;
-  color: #7F7F7F;
+.directory a {
+  color: white;
+  text-decoration: none;
 }
 
-.video {
-  display: none;
+.directory a:visited {
+  color: white;
+}
+
+.directory p {
+  margin: 0;
 }
