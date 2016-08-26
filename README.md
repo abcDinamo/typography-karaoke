@@ -77,3 +77,11 @@ $ npm run clean
 **Input:** `build/app.js`
 
 Removes the compiled app file from build.
+
+## Converting Video Files
+
+I suggest using ffmpeg with the following command:
+
+```sh
+$ ffmpeg -i in.mov -vcodec copy -acodec copy out.mp4
+```
