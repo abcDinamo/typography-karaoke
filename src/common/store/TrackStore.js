@@ -11,6 +11,12 @@ import frereSubtitles from '../../assets/music/02-Frere-Jacques/subtitles.vtt';
 import happyTrack from '../../assets/music/03-If-you-are-Happy/track.mp4';
 import happySubtitles from '../../assets/music/03-If-you-are-Happy/subtitles.vtt';
 
+var path = "";
+
+if(window.location.href.indexOf('github') >= 0) {
+  path = path + '/typography-karaoke/';
+}
+
 class TrackStore {
   constructor() {
     this.tracks = [];
@@ -31,8 +37,8 @@ class TrackStore {
 }
 
 var trackStore = new TrackStore();
-trackStore.addTrack(new Track('Alphabet Song', 'Alphabet Song', alphabetTrack, alphabetSubtitles));
-trackStore.addTrack(new Track('Frere Jacques', 'Frere Jacques', frereTrack, frereSubtitles));
-trackStore.addTrack(new Track('If you are Happy', 'If you are Happy', happyTrack, happySubtitles));
+trackStore.addTrack(new Track('Alphabet Song', 'Alphabet Song', path + alphabetTrack, alphabetSubtitles));
+trackStore.addTrack(new Track('Frere Jacques', 'Frere Jacques', path + frereTrack, frereSubtitles));
+trackStore.addTrack(new Track('If you are Happy', 'If you are Happy', path + happyTrack, happySubtitles));
 
 export default trackStore;
