@@ -1,3 +1,45 @@
+@font-face {
+  font-family: 'gothic-bold-loose-lkerned';
+  src: url('../assets/fonts/Gothic_Bold_Loose_Ikerned.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'inhouse-gothic';
+  src: url('../assets/fonts/Inhouse-Gothic.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'lapidar-mittel';
+  src: url('../assets/fonts/Lapidar-Mittel.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'pegasus-regular';
+  src: url('../assets/fonts/Pegasus-Regular_14_ik2.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'roma';
+  src: url('../assets/fonts/Roma.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'weiss-falk-regular';
+  src: url('../assets/fonts/WeissFalk_Regular_FINAL.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 * {
   box-sizing: border-box;
 }
