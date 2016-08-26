@@ -17,8 +17,13 @@ export default class HomePage extends React.Component {
   }
 
   render() {
+    var path = '/';
+    if(window.location.href.indexOf('github') >= 0) {
+      path = path + 'typography-karaoke/';
+    }
+
     var fontItems = _.map(this.state.fonts, function(font) {
-      var link = '/karaoke/' + font.name;
+      var link = path + 'karaoke/' + font.name;
 
       return (
         <li>
