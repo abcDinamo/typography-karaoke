@@ -15,7 +15,8 @@ export default class KaraokePage extends React.Component {
 
     this.state = {
       track: trackStore.getRandom(),
-      font: fontStore.getFontByName(this.props.params.id)
+      font: fontStore.getFontByName(this.props.params.id),
+      updateTick: null
     };
   }
 
@@ -29,7 +30,6 @@ export default class KaraokePage extends React.Component {
         var update, karaoke, updateKaraoke; //audioTrack, updateAudio;
 
         karaoke = ReactDom.render(<VideoTrack/>, document.getElementById('video-vtt'));
-        console.dir(karaoke)
 
         updateKaraoke = function(time, cues) {
           var cue;
@@ -47,10 +47,15 @@ export default class KaraokePage extends React.Component {
           videoTime = self.video.currentTime;
           videoCues.update(videoTime);
           updateKaraoke(videoTime, videoCues);
-          return requestAnimationFrame(update);
+          self.state.updateTick = requestAnimationFrame(update);
+          return self.state.updateTick;
         };
-        requestAnimationFrame(update);
+        self.state.updateTick = requestAnimationFrame(update);
     });
+  }
+
+  componentWillUnmount() {
+    window.cancelAnimationFrame(this.state.updateTick)
   }
 
   render() {
