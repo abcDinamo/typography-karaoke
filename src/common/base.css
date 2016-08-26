@@ -5,11 +5,19 @@
   font-style: normal;
 }
 
+:global(.gothic-bold-loose-lkerned) {
+  font-family: 'gothic-bold-loose-lkerned';
+}
+
 @font-face {
   font-family: 'inhouse-gothic';
   src: url('../assets/fonts/Inhouse-Gothic.otf') format('opentype');
   font-weight: normal;
   font-style: normal;
+}
+
+:global(.inhouse-gothic) {
+  font-family: 'inhouse-gothic';
 }
 
 @font-face {
@@ -19,11 +27,19 @@
   font-style: normal;
 }
 
+:global(.lapidar-mittel) {
+  font-family: 'lapidar-mittel';
+}
+
 @font-face {
   font-family: 'pegasus-regular';
   src: url('../assets/fonts/Pegasus-Regular_14_ik2.otf') format('opentype');
   font-weight: normal;
   font-style: normal;
+}
+
+:global(.pegasus-regular) {
+  font-family: 'pegasus-regular';
 }
 
 @font-face {
@@ -33,11 +49,19 @@
   font-style: normal;
 }
 
+:global(.roma) {
+  font-family: 'roma';
+}
+
 @font-face {
   font-family: 'weiss-falk-regular';
   src: url('../assets/fonts/WeissFalk_Regular_FINAL.otf') format('opentype');
   font-weight: normal;
   font-style: normal;
+}
+
+:global(.weissfalk-regular) {
+  font-family: 'weissfalk-regular';
 }
 
 * {
@@ -60,6 +84,11 @@ body {
   text-align: center;
   white-space: nowrap;
   overflow: hidden;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body:before {
