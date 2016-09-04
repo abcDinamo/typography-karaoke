@@ -76,24 +76,17 @@ body {
 
 body {
   margin: 0;
-  padding: 0;
+  padding: 40px;
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   color: white;
   background-color: black;
   font-size: 48px;
   text-align: center;
   white-space: nowrap;
-  overflow: hidden;
+  overflow-x: hidden;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-body:before {
-  content: "";
-  vertical-align: middle;
-  height: 100%;
-  display: inline-block;
 }
 

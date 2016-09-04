@@ -3,6 +3,21 @@
   list-style: none;
   margin: 0;
   padding: 0;
+  text-align: left;
+}
+
+.directory li {
+  padding: 40px;
+  border-radius: 20px;
+  margin-bottom: 40px;
+}
+
+.directory li:last-child {
+  padding: 0;
+}
+
+address {
+  font-style: normal;
 }
 
 .directory a {
