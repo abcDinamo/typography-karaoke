@@ -38,7 +38,7 @@ export default class KaraokePage extends React.Component {
             endTime: 0
           };
           if (cues.activeCues[0]) {
-            karaoke = ReactDom.render(<VideoTrack data={ReactVTT.separate(cues.activeCues[0])} currentTime={time}/>, document.getElementById('video-vtt'));
+            karaoke = ReactDom.render(<VideoTrack data={ReactVTT.separate(cues.activeCues[0])} currentTime={time} color={self.state.font.color}/>, document.getElementById('video-vtt'));
           }
         };
 

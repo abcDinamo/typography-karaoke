@@ -17,7 +17,7 @@ class VideoTrack extends React.Component {
       datum.currentTime = self.props.currentTime;
 
       return (
-        <Cue { ...datum }>{ datum.text }</Cue>
+        <Cue { ...datum } color={ self.props.color }>{ datum.text }</Cue>
       );
     });
 

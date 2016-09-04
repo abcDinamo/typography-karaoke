@@ -21,7 +21,8 @@ class Cue extends React.Component {
     }
 
     var overlayStyle = {
-      width: progress + '%'
+      width: progress + '%',
+      color: this.props.color
     };
 
     return (
@@ -39,7 +40,8 @@ class Cue extends React.Component {
 Cue.defaultProps = {
   startTime: 0,
   endTime: 0,
-  currentTime: 0
+  currentTime: 0,
+  color: '#f90'
 }
 
 export default Cue;
