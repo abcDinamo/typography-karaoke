@@ -42,7 +42,7 @@ export default class HomePage extends React.Component {
           <address>
             Standard Typefaces Int'l<br/>
             For inquiries please contact<br/>
-            <a href="mailto:mail@standardtype.xyz">mail@standardtype.xyz</a><br/>
+            <a target="_blank" href="mailto:mail@standardtype.xyz">mail@standardtype.xyz</a><br/>
           </address>
         </li>
       </ul>

@@ -16,17 +16,21 @@
   padding: 0;
 }
 
+.directory li:last-child a {
+  color: white;
+}
+
 address {
   font-style: normal;
 }
 
 .directory a {
-  color: white;
+  color: black;
   text-decoration: none;
 }
 
 .directory a:visited {
-  color: white;
+  color: black;
 }
 
 .directory p {
