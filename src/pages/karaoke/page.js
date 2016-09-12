@@ -40,6 +40,10 @@ export default class KaraokePage extends React.Component {
       return;
     }
 
+    if(this.state.playing) {
+      this.refs.video.play();
+    }
+
     this.video = document.getElementsByTagName('video')[0];
 
     ReactVTT.parse(ReactVTT.fromSelectorOrPath('track#recording'), function(videoCues) {
@@ -99,7 +103,7 @@ export default class KaraokePage extends React.Component {
         <style>
           {fontFace}
         </style>
-        <video className={ styles.video } autoPlay loop>
+        <video ref="video" className={ styles.video } autoPlay loop>
             <source src={ this.state.track.recording } type="video/mp4"/>
             <track id="recording" kind="subtitles" src={ this.state.track.getSubtitlesUrl() } srcLang="en" label="English" default/>
         </video>
