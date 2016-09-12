@@ -43,7 +43,7 @@ export default class KaraokePage extends React.Component {
 
     // got to do this because react strips out unknown attributes
     // why do people use this framework?
-    this.refs.video.setAttribute('webkit-playsinline', 'webkit-playsinline');
+    this.refs.video.setAttribute('webkit-playsinline', '');
     makeVideoPlayableInline(this.refs.video);
 
     if(this.state.playing) {
