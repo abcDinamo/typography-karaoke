@@ -3,9 +3,6 @@ import ReactDom from 'react-dom';
 import { Link } from 'react-router';
 import _ from 'lodash';
 
-
-import fontStore from '../../common/store/FontStore.js'
-
 import styles from "./style.css";
 
 export default class HomePage extends React.Component {
@@ -13,7 +10,7 @@ export default class HomePage extends React.Component {
     super(props);
 
     this.state = {
-      fonts: fontStore.fonts
+      fonts: this.props.fontStore.fonts
     };
   }
 

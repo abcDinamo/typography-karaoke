@@ -1,15 +1,7 @@
 import _ from 'lodash';
 
 import Track from './Track';
-
-import alphabetTrack from '../../assets/music/01-Alphabet-Song/track.mp4';
-import alphabetSubtitles from '../../assets/music/01-Alphabet-Song/subtitles.vtt';
-
-import frereTrack from '../../assets/music/02-Frere-Jacques/track.mp4';
-import frereSubtitles from '../../assets/music/02-Frere-Jacques/subtitles.vtt';
-
-import happyTrack from '../../assets/music/03-If-you-are-Happy/track.mp4';
-import happySubtitles from '../../assets/music/03-If-you-are-Happy/subtitles.vtt';
+import client from './Contentful';
 
 var path = "";
 
@@ -20,10 +12,19 @@ if(window.location.href.indexOf('github') >= 0) {
 class TrackStore {
   constructor() {
     this.tracks = [];
+    this.onAddCallbacks = [];
   }
 
   addTrack(track) {
     this.tracks.push(track);
+
+    _.each(this.onAddCallbacks, function(func) {
+      func(track);
+    });
+  }
+
+  registerOnAddCallback(func) {
+    this.onAddCallbacks.push(func);
   }
 
   getRandom() {
@@ -37,8 +38,13 @@ class TrackStore {
 }
 
 var trackStore = new TrackStore();
-trackStore.addTrack(new Track('Alphabet Song', 'Alphabet Song', path + alphabetTrack, alphabetSubtitles));
-trackStore.addTrack(new Track('Frere Jacques', 'Frere Jacques', path + frereTrack, frereSubtitles));
-trackStore.addTrack(new Track('If you are Happy', 'If you are Happy', path + happyTrack, happySubtitles));
+
+client.getEntries({ content_type: 'audio' })
+.then(function (entries) {
+  entries.items.forEach(function (entry, index) {
+    var subtitlesDataURI = 'data:text/vtt;base64,' + btoa(entry.fields.subtitles)
+    trackStore.addTrack(new Track(entry.sys.id, entry.fields.name, entry.fields.track.fields.file.url, subtitlesDataURI));
+  });
+});
 
 export default trackStore;

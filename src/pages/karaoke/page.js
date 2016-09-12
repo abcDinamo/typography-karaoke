@@ -4,8 +4,6 @@ import ReactVTT from 'react-vtt';
 import Cue from 'react-vtt';
 
 import VideoTrack from '../../common/components/VideoTrack';
-import trackStore from '../../common/store/TrackStore';
-import fontStore from '../../common/store/FontStore';
 
 import styles from "./style.css";
 
@@ -14,8 +12,8 @@ export default class KaraokePage extends React.Component {
     super(props);
 
     this.state = {
-      track: trackStore.getRandom(),
-      font: fontStore.getFontByName(this.props.params.id),
+      track: this.props.trackStore.getRandom(),
+      font: this.props.fontStore.getFontByName(this.props.params.id),
       updateTick: null
     };
   }

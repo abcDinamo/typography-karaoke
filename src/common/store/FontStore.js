@@ -2,14 +2,24 @@ import _ from 'lodash';
 import mColors from 'material-colors';
 
 import Font from './Font';
+import client from './Contentful';
 
 class FontStore {
   constructor() {
     this.fonts = [];
+    this.onAddCallbacks = [];
+  }
+
+  registerOnAddCallback(func) {
+    this.onAddCallbacks.push(func);
   }
 
   addFont(font) {
     this.fonts.push(font);
+
+    _.each(this.onAddCallbacks, function(func) {
+      func(font);
+    });
   }
 
   getFontByName(name) {
@@ -29,13 +39,13 @@ var colors = _.transform(mColors, function(result, value, key) {
 }, []);
 
 colors = _.shuffle(colors);
-
 var fontStore = new FontStore();
-fontStore.addFont(new Font('gothic-bold-loose-lkerned', 'Gothic Bold Loose Ikerned', colors[0]));
-fontStore.addFont(new Font('inhouse-gothic', 'Inhouse Gothic', colors[1]));
-fontStore.addFont(new Font('lapidar-mittel', 'Lapidar Mittel', colors[2]));
-fontStore.addFont(new Font('pegasus-regular', 'Pegasus Regular', colors[3]));
-fontStore.addFont(new Font('roma', 'Roma', colors[4]));
-fontStore.addFont(new Font('weissfalk-regular', 'WeissFalk Regular', colors[5]));
+
+client.getEntries({ content_type: 'font' })
+.then(function (entries) {
+  entries.items.forEach(function (entry, index) {
+    fontStore.addFont(new Font(entry.sys.id, entry.fields.name, colors[index]));
+  });
+});
 
 export default fontStore;
