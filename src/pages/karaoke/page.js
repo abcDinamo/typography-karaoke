@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDom from 'react-dom';
 import ReactVTT from 'react-vtt';
 import Cue from 'react-vtt';
+import makeVideoPlayableInline from 'iphone-inline-video';
 
 import VideoTrack from '../../common/components/VideoTrack';
 
@@ -39,6 +40,11 @@ export default class KaraokePage extends React.Component {
     if(!this.state.playing) {
       return;
     }
+
+    // got to do this because react strips out unknown attributes
+    // why do people use this framework?
+    this.refs.video.setAttribute('webkit-playsinline', 'webkit-playsinline');
+    makeVideoPlayableInline(this.refs.video);
 
     if(this.state.playing) {
       this.refs.video.play();
