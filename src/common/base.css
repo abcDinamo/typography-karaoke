@@ -74,12 +74,17 @@ body {
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   color: white;
   background-color: black;
-  font-size: 48px;
+  font-size: 36px;
   overflow-x: hidden;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  @media (max-width: 800px) {
+    padding: 20px;
+    font-size: 50px;
+  }
 }
 
 :global(a) {

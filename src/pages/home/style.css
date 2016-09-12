@@ -13,6 +13,14 @@
   border-radius: 20px;
   margin-bottom: 50px;
   position: relative;
+
+  @media (max-width: 800px) {
+    width: 100%;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    margin-bottom: 20px;
+    padding-top: 20%;
+  }
 }
 
 .directory li:nth-child(2n) {
@@ -43,14 +51,6 @@
   display: inline-block;
   vertical-align: middle;
 }
-
-/*.directory li:last-child {
-  padding: 0;
-}*/
-
-/*.directory li:last-child a {
-  color: white;
-}*/
 
 address {
   font-style: normal;
