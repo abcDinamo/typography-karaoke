@@ -44,7 +44,7 @@ var fontStore = new FontStore();
 client.getEntries({ content_type: 'font' })
 .then(function (entries) {
   entries.items.forEach(function (entry, index) {
-    fontStore.addFont(new Font(entry.sys.id, entry.fields.name, colors[index]));
+    fontStore.addFont(new Font(entry.sys.id, entry.fields.name, entry.fields.sources[0].fields.file.url, colors[index]));
   });
 });
 

@@ -11,16 +11,34 @@ export default class KaraokePage extends React.Component {
   constructor(props) {
     super(props);
 
+    // FIXME differentiate between loading and playing
     this.state = {
-      track: this.props.trackStore.getRandom(),
-      font: this.props.fontStore.getFontByName(this.props.params.id),
+      track: this.props.trackStore.tracks.length ? this.props.trackStore.getRandom() : null,
+      font: this.props.fontStore.fonts.length ? this.props.fontStore.getFontByName(this.props.params.id) : null,
+      playing: this.props.trackStore.tracks.length && this.props.fontStore.fonts.length,
       updateTick: null
     };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      track: this.props.trackStore.tracks.length ? this.props.trackStore.getRandom() : null,
+      font: this.props.fontStore.fonts.length ? this.props.fontStore.getFontByName(this.props.params.id) : null,
+      playing: this.props.trackStore.tracks.length && this.props.fontStore.fonts.length,
+    })
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    this.componentDidMount();
   }
 
   // FIXME refactor
   componentDidMount() {
     var self = this;
+
+    if(!this.state.playing) {
+      return;
+    }
 
     this.video = document.getElementsByTagName('video')[0];
 
@@ -57,13 +75,35 @@ export default class KaraokePage extends React.Component {
   }
 
   render() {
+
+    if(!this.state.font || !this.state.track) {
+      return (<p>loading...</p>);
+    }
+
+    // FIXME preload all the fonts
+    var fontFace = `
+      @font-face {
+        font-family: "${this.state.font.id}";
+        src: url("${this.state.font.url}") format("opentype");
+        font-weight: normal;
+        font-style: normal;
+      }
+
+      .kfont {
+        font-family: "${this.state.font.id}";
+      }
+    `;
+
     return (
       <div className={ styles.content }>
+        <style>
+          {fontFace}
+        </style>
         <video className={ styles.video } autoPlay loop>
             <source src={ this.state.track.recording } type="video/mp4"/>
             <track id="recording" kind="subtitles" src={ this.state.track.getSubtitlesUrl() } srcLang="en" label="English" default/>
         </video>
-        <div id="video-vtt" className={ this.state.font.id }></div>
+        <div id="video-vtt" className={ 'kfont' }></div>
       </div>
     );
   }
