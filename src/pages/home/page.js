@@ -36,16 +36,16 @@ export default class HomePage extends React.Component {
     });
 
     return (
-      <ul className={ styles.directory }>
-        { fontItems }
-        <li>
-          <address>
-            Standard Typefaces Int'l<br/>
-            For inquiries please contact<br/>
-            <a target="_blank" href="mailto:mail@standardtype.xyz">mail@standardtype.xyz</a><br/>
-          </address>
-        </li>
-      </ul>
+      <div className="necessary-but-useless-div-because-react-is-trash">
+        <ul className={ styles.directory }>
+          { fontItems }
+        </ul>
+        <address>
+          <p>Standard Typefaces Int'l</p>
+          <p>For inquiries please contact</p>
+          <a target="_blank" href="mailto:mail@standardtype.xyz">mail@standardtype.xyz</a><br/>
+        </address>
+      </div>
     );
   }
 }

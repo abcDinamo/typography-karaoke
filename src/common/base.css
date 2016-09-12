@@ -68,24 +68,30 @@
   box-sizing: border-box;
 }
 
-html,
-body {
-  height: 100%;
-  width: 100%;
-}
-
 body {
   margin: 0;
-  padding: 40px;
+  padding: 50px;
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   color: white;
   background-color: black;
   font-size: 48px;
-  text-align: center;
   overflow-x: hidden;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+:global(a) {
+  color: white;
+  text-decoration: none;
+}
+
+:global(a:visited) {
+  color: white;
+}
+
+:global(p) {
+  margin: 0;
 }
 
