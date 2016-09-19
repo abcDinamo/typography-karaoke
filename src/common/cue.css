@@ -1,20 +1,25 @@
-.cue {
-  -webkit-font-smoothing: antialiased;
+.cueText {
+  color: white;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-fill-color: transparent;
+  display: inline-block;
 }
 
 .children {
-  display: inline-block;
-  position: relative;
-  white-space: pre;
+
 }
 
-.overlay {
-  pointer-events: none;
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: -0.5rem;
-  overflow: hidden;
-  color: #f90;
+:global(.widther) {
+  display: inline-block;
+  visibility: hidden;
+  display: none;
+}
+
+:global(.measure) {
+  display: inline-block;
+  visibility: hidden;
+  display: none;
 }
 

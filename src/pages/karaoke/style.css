@@ -1,5 +1,6 @@
 .content {
   text-align: center;
+  font-size: 72px;
 }
 
 .welcomeText {
@@ -9,4 +10,10 @@
 
 .video {
   display: none;
+  visibility: hidden;
+}
+
+.audio {
+  display: none;
+  visibility: hidden;
 }

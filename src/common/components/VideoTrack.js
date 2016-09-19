@@ -1,7 +1,7 @@
 import React from 'react';
 import Cue from './Cue';
 
-var CueFactory = React.createFactory(Cue);
+import styles from "../videotrack.css";
 
 class VideoTrack extends React.Component {
   constructor(props) {
@@ -22,7 +22,7 @@ class VideoTrack extends React.Component {
     });
 
     return (
-      <div className="video-track">
+      <div className={ styles['video-track'] }>
         { cues }
       </div>
     );

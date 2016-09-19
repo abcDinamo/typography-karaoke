@@ -1,0 +1,19 @@
+.video-track {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.video-track:before {
+  content: "";
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+
+.video-track > div {
+  display: inline-block;
+  vertical-align: middle;
+}
