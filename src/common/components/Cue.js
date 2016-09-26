@@ -15,6 +15,8 @@ class Cue extends React.Component {
     };
 
     this.lineCache = {};
+
+    this.handleResize = this.handleResize.bind(this);
   }
 
   mapInRange(value, inMin, inMax, outMin, outMax, constrain = false) {
@@ -115,6 +117,22 @@ class Cue extends React.Component {
     this.lineCache[text] = lines;
 
     return lines;
+  }
+
+  handleResize(event) {
+    this.lineCache = {};
+  }
+
+  componentDidMount() {
+    var $window = $(window);
+
+    $window.on('resize orientationchange', this.handleResize);
+  }
+
+  componentWillUnmount() {
+    var $window = $(window);
+
+    $window.off('resize orientationchange', this.handleResize);
   }
 
   render() {
