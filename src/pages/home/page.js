@@ -33,7 +33,7 @@ export default class HomePage extends React.Component {
     });
 
     return (
-      <div className="necessary-but-useless-div-because-react-is-trash">
+      <div>
         <ul className={ styles.directory }>
           { fontItems }
         </ul>
