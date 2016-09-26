@@ -7,5 +7,6 @@
   display: table;
   margin: 0 auto;
   visibility: hidden;
+  display: none;
 }
 

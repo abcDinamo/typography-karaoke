@@ -1,3 +1,4 @@
+import $ from 'jquery';
 import _ from 'lodash';
 
 import React from 'react';
@@ -132,19 +133,23 @@ export default class KaraokePage extends React.Component {
 
   componentDidMount() {
     var self = this;
+    var $window = $(window);
 
-    window.addEventListener('keydown', this.handleTogglePlay);
-    window.addEventListener('click', this.handleTogglePlay);
-    window.addEventListener('touch', this.handleTogglePlay);
+    $window.on('keydown click touch', this.handleTogglePlay);
 
     // wait for our font to load and then update when it has
     // pretty hacky
     var font = new FontFaceObserver(this.props.params.id);
     font.load(null, 5000)
     .then(function () {
+      // set that we have loaded the font
       self.setState({
         fontIsLoaded: true
       })
+    })
+    .catch(function() {
+      // something wrong, try reloading the page
+      window.location.reload();
     });
 
     //  http://stackoverflow.com/questions/30855662/inline-html5-video-on-iphone
@@ -154,10 +159,10 @@ export default class KaraokePage extends React.Component {
   }
 
   componentWillUnmount() {
+    var $window = $(window);
+
     window.cancelAnimationFrame(this.updateTick);
-    window.removeEventListener('keydown', this.handleTogglePlay);
-    window.removeEventListener('click', this.handleTogglePlay);
-    window.removeEventListener('touch', this.handleTogglePlay);
+    $window.off('keydown click touch', this.handleTogglePlay);
   }
 
   render() {
