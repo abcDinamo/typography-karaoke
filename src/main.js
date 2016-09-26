@@ -9,7 +9,8 @@ import FastClick from 'fastclick';
 // Libraries
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, browserHistory } from 'react-router';
+import { createHistory } from 'history';
+import { Router, useRouterHistory } from 'react-router';
 
 // Routes
 import Routes from './common/components/Routes';
@@ -21,6 +22,16 @@ import './common/base.css';
 const DOM_APP_EL_ID = 'app';
 
 FastClick.attach(document.body);
+
+var basePath = '/';
+
+if(window.location.href.indexOf('github') >= 0) {
+  basePath = basePath + 'typography-karaoke/';
+}
+
+const browserHistory = useRouterHistory(createHistory)({
+  basename: basePath
+});
 
 // Render the router
 ReactDOM.render((

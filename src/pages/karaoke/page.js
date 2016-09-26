@@ -1,15 +1,15 @@
 import $ from 'jquery';
 import _ from 'lodash';
+import FontFaceObserver from 'fontfaceobserver';
 
 import React from 'react';
 import ReactDom from 'react-dom';
 import ReactVTT from 'react-vtt';
 import Cue from 'react-vtt';
-import FontFaceObserver from 'fontfaceobserver';
 
 import VideoTrack from '../../common/components/VideoTrack';
 
-import styles from "./style.css";
+import styles from './style.css';
 
 const CLICK = 1;
 const SPACE = 32;
@@ -32,10 +32,11 @@ export default class KaraokePage extends React.Component {
       currentTime: 0
     };
 
-    this.updateTick = null
+    this.updateTick = null;
 
     this.updateKaraoke = this.updateKaraoke.bind(this);
     this.handleTogglePlay = this.handleTogglePlay.bind(this);
+    this.handleEnded = this.handleEnded.bind(this);
   }
 
   fetchTrack() {
@@ -55,7 +56,7 @@ export default class KaraokePage extends React.Component {
     if(this.refs.audio) {
       this.refs.audio[toggleMethod]();
       this.setState({
-        isPlaying: toggleState
+        isPlaying: !this.refs.audio.paused
       });
     }
   }
@@ -72,6 +73,10 @@ export default class KaraokePage extends React.Component {
     if (event.which === CLICK || event.which === SPACE) {
       this.togglePlay();
     }
+  }
+
+  handleEnded(event) {
+    this.props.history.push('/');
   }
 
   updateKaraoke() {
@@ -155,9 +160,7 @@ export default class KaraokePage extends React.Component {
       window.location.reload();
     });
 
-    //  http://stackoverflow.com/questions/30855662/inline-html5-video-on-iphone
-    //  FIXME play audio and then seek video...
-    // this.refs.video.setAttribute('webkit-playsinline', '');
+    // http://stackoverflow.com/questions/30855662/inline-html5-video-on-iphone
   }
 
   componentWillUnmount() {
@@ -197,12 +200,12 @@ export default class KaraokePage extends React.Component {
     }
 
     return (
-      <div id="content" className={ styles.content + ' kfont' }>
+      <div id="content" className={ styles.content + ' kfont' } onEnded={ this.handleEnded }>
         <style>
           { fontFace }
         </style>
 
-        <audio ref="audio" className={ styles.audio } loop>
+        <audio ref="audio" className={ styles.audio }>
           <source src={ this.state.track.recording } type="video/mp4"/>
         </audio>
         <video ref="video" className={ styles.video }>
