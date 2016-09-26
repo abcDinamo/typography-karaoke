@@ -18,10 +18,11 @@ export default class App extends React.Component {
   }
 
   onAdd(thing) {
+    // every time a new thing is addded, propagate the changes down
     this.setState({
       fontStore: fontStore,
       trackStore: trackStore
-    })
+    });
   }
 
   render() {
@@ -31,7 +32,7 @@ export default class App extends React.Component {
 
     return (
       <div id="container">
-        {childrenWithProps}
+        { childrenWithProps }
       </div>
     );
   }

@@ -13,12 +13,14 @@ class Cue extends React.Component {
     this.state = {
       text: this.props.children
     };
+
+    this.lineCache = {};
   }
 
-  mapInRange(value, inMin, inMax, outMin, outMax, contrain = false) {
+  mapInRange(value, inMin, inMax, outMin, outMax, constrain = false) {
     var outValue = (value - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
 
-    if(!contrain) {
+    if(!constrain) {
       return outValue;
     }
 
@@ -29,15 +31,18 @@ class Cue extends React.Component {
     if(outValue < outMin) {
       return outMin;
     }
+
+    return outValue;
   }
 
   // FIXME don't do this everytime, just when text changes or window is resized
   getLines(text) {
-    var $measureContainer = $(this.refs.measureContainer);
-    var $measure = $measureContainer.find('.measure').length ? $measureContainer.find('.measure') : $('<div class="measure"></div>');
-    var $widther = $measureContainer.find('.widther').length ? $measureContainer.find('.widther') : $('<div class="measure widther"></div>');
+    var $measureContainer = $('#content');
+    var $measure = $measureContainer.find('.measure').length ? $measureContainer.find('.measure') : $('<div class="measure kfont"></div>');
+    var $widther = $measureContainer.find('.widther').length ? $measureContainer.find('.widther') : $('<div class="measure widther kfont"></div>');
     // MAYBE http://stackoverflow.com/questions/26425637/javascript-split-string-with-white-space
-    var words = text.split(/\s+/);
+    // var words = text.split(/\s+/);
+    var words = text.split(/(\s+)/);
     var lines = [];
     var height = 0;
     var lastHeightIndex = 0;
@@ -49,6 +54,8 @@ class Cue extends React.Component {
     $measureContainer.append($widther);
 
     // find the tallest min-height
+    // some sources say this is the tallest character
+    // FIXME why do we need this?
     $measure.text('ƒ');
     var minHeight = $measure.height();
     $measure.css('min-height', minHeight + 'px')
@@ -59,15 +66,19 @@ class Cue extends React.Component {
 
     for (var i = 1; i < words.length; i++) {
       // textSoFar + spaces[i] + words [i]
-      var newText = textSoFar + ' ' + words[i];
+      var newText = textSoFar + words[i];
       $measure.text(newText);
 
       if($measure.height() > height) {
+        console.log('broke with', words[i], newText)
         $widther.text(currentLine);
         var lineWidth = $widther.width();
+        var lineHeight = $widther.height();
+
         lines.push({
           text: currentLine,
           width: lineWidth,
+          height: lineHeight,
           widthRange: [currentLineWidthRange, currentLineWidthRange + lineWidth]
         });
 
@@ -76,7 +87,7 @@ class Cue extends React.Component {
         lastHeightIndex = i - 1;
         currentLine = words[i];
       } else {
-        currentLine = currentLine + ' ' + words[i];
+        currentLine = currentLine + words[i];
       }
 
       textSoFar = newText;
@@ -84,11 +95,24 @@ class Cue extends React.Component {
 
     $widther.text(currentLine);
     var lineWidth = $widther.width();
+    var lineHeight = $widther.height();
     lines.push({
       text: currentLine,
       width: lineWidth,
+      height: lineHeight,
       widthRange: [currentLineWidthRange, currentLineWidthRange + lineWidth]
     });
+
+    return lines;
+  }
+
+  getLinesCached(text) {
+    if(this.lineCache[text]) {
+      return this.lineCache[text];
+    }
+
+    var lines = this.getLines(text);
+    this.lineCache[text] = lines;
 
     return lines;
   }
@@ -107,24 +131,24 @@ class Cue extends React.Component {
     }
 
     var progressPercent = progress + '%';
-    var lines = this.getLines(this.props.children);
-    var totalWidth = lines[lines.length - 1].widthRange[1]
+    // var lineProgressPercent = (Math.ceil(lineProgress * 5) / 5).toFixed(2)  + '%';
+    var lines = this.getLinesCached(this.props.children);
+    var totalWidth = lines[lines.length - 1].widthRange[1];
     var progressWidth = this.mapInRange(progress, 0, 100, 0, totalWidth);
 
     var htmlLines = _.map(lines, function(line, index) {
-        var lineProgress = self.mapInRange(progressWidth, line.widthRange[0], line.widthRange[1], 0, 100);
-        var lineProgressPercent = (Math.ceil(lineProgress * 5) / 5).toFixed(2)  + '%';
-
-        var cueTextStyle = {
-          backgroundImage: `-moz-linear-gradient(left, ${self.props.color} ${lineProgressPercent}, #FFF ${lineProgressPercent})`,
-          backgroundImage: `-webkit-linear-gradient(left, ${self.props.color} ${lineProgressPercent}, #FFF ${lineProgressPercent})`,
-          backgroundImage: `linear-gradient(to right, ${self.props.color} ${lineProgressPercent}, #FFF ${lineProgressPercent})`
-        };
+        var lineProgress = self.mapInRange(progressWidth, line.widthRange[0], line.widthRange[1], 0, 100, true);
+        var lineProgressPercent = lineProgress.toFixed(2)  + '%';
+        var patternId = 'pattern' + index;
 
         return (
-          <div key={ index } className={ styles.cueText } style={ cueTextStyle }>
-            { line.text }
-          </div>
+          <svg className={ styles.cueText } key={ index } width={ line.width } height={ line.height } textRendering="geometricPrecision" shapeRendering="geometricPrecision">
+            <pattern id={ patternId } patternUnits="userSpaceOnUse" height={ line.height } width="100%">
+              <rect style={{fill: self.props.color}} x="0" y="0" height="100" width={ lineProgressPercent }></rect>
+              <rect style={{fill: '#fff'}} x={ lineProgressPercent } y="0" height="100" width="100%"></rect>
+            </pattern>
+            <text x="0" y="50%" dominantBaseline="middle" style={{ fill: 'url(#' + patternId + ')' }}>{ line.text }</text>
+          </svg>
         );
     });
 
@@ -144,7 +168,7 @@ Cue.defaultProps = {
   startTime: 0,
   endTime: 0,
   currentTime: 0,
-  color: '#f90'
+  color: '#fff'
 }
 
 export default Cue;

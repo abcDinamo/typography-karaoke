@@ -31,9 +31,9 @@ class TrackStore {
     return _.sample(this.tracks);
   }
 
-  getTrackById(id) {
+  getTrackByName(name) {
     // FIXME for now this works because it's just 3 things
-    return _.find(this.tracks, ['id', id]);
+    return _.find(this.tracks, ['name', name]);
   }
 }
 

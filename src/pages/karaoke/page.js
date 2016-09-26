@@ -4,11 +4,14 @@ import React from 'react';
 import ReactDom from 'react-dom';
 import ReactVTT from 'react-vtt';
 import Cue from 'react-vtt';
-import makeVideoPlayableInline from 'iphone-inline-video';
+import FontFaceObserver from 'fontfaceobserver';
 
 import VideoTrack from '../../common/components/VideoTrack';
 
 import styles from "./style.css";
+
+const CLICK = 1;
+const SPACE = 32;
 
 export default class KaraokePage extends React.Component {
   constructor(props) {
@@ -16,14 +19,13 @@ export default class KaraokePage extends React.Component {
 
     var track = this.fetchTrack();
     var font = this.fetchFont();
-    var isPlaying = true;
-    var isLoading = !track || !font;
 
     this.state = {
       track: track,
       font: font,
-      isPlaying: isPlaying,
-      isLoading: isLoading,
+      isPlaying: true,
+      trackIsLoaded: !!track,
+      fontIsLoaded: false,
       cues: {},
       activeCue: null,
       currentTime: 0
@@ -36,7 +38,8 @@ export default class KaraokePage extends React.Component {
   }
 
   fetchTrack() {
-    return this.props.trackStore.tracks.length ? this.props.trackStore.getRandom() : null;
+    return this.props.trackStore.getTrackByName("If You're Happy and You Know It");
+    // return this.props.trackStore.tracks.length ? this.props.trackStore.getRandom() : null;
   }
 
   fetchFont() {
@@ -81,61 +84,17 @@ export default class KaraokePage extends React.Component {
   }
 
   handleTogglePlay(event) {
-    // click or space
-    if (event.which === 1 || event.which === 32) {
+    if (event.which === CLICK || event.which === SPACE) {
       this.togglePlay();
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    console.log('componentWillReceiveProps', nextProps);
-
-    var track = this.fetchTrack();
-    var font = this.fetchFont();
-
-    this.setState({
-      track: track,
-      font: font,
-      isPlaying: true,
-      isLoading: !track || !font,
-    });
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    return !_.isEqual(this.state.track, nextState.track);
-  }
-
-  componentWillUpdate(nextProps, nextState) {
-
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    this.componentDidMount();
-  }
-
-  // FIXME refactor
-  componentDidMount() {
+  initRecording() {
     var self = this;
 
-    window.addEventListener("keydown", this.handleTogglePlay);
-    window.addEventListener("click", this.handleTogglePlay);
-    window.addEventListener("touch", this.handleTogglePlay);
-
-    if(this.state.isLoading) {
+    if(this.isLoading()) {
       return;
     }
-
-    // got to do this because react strips out unknown attributes
-    // why do people use this framework?
-    //  http://stackoverflow.com/questions/30855662/inline-html5-video-on-iphone
-    //  FIXME play audio and then seek video...
-    this.refs.video.setAttribute('webkit-playsinline', '');
-    // makeVideoPlayableInline(this.refs.video);
-
-
-    // get and parse all queues
-    // save queues to state
-    // TODO isLoading also takes into consideration loading of queues
 
     ReactVTT.parse(ReactVTT.fromSelectorOrPath('track#recording'), function(videoCues) {
       self.setState({
@@ -144,41 +103,98 @@ export default class KaraokePage extends React.Component {
       self.updateTick = requestAnimationFrame(self.updateKaraoke);
       self.play();
     });
+  }
 
+  isLoading(otherState) {
+    var state = otherState ? otherState : this.state;
+    return !state.fontIsLoaded || !state.trackIsLoaded;
+  }
+
+  componentWillReceiveProps(nextProps) {
+    var track = this.fetchTrack();
+    var font = this.fetchFont();
+
+    this.setState({
+      track: track,
+      font: font,
+      isPlaying: true,
+      trackIsLoaded: !!track
+    });
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return !_.isEqual(this.state.track, nextState.track) || this.isLoading() !== this.isLoading(nextState);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    this.initRecording();
+  }
+
+  componentDidMount() {
+    var self = this;
+
+    window.addEventListener('keydown', this.handleTogglePlay);
+    window.addEventListener('click', this.handleTogglePlay);
+    window.addEventListener('touch', this.handleTogglePlay);
+
+    // wait for our font to load and then update when it has
+    // pretty hacky
+    var font = new FontFaceObserver(this.props.params.id);
+    font.load(null, 5000)
+    .then(function () {
+      self.setState({
+        fontIsLoaded: true
+      })
+    });
+
+    //  http://stackoverflow.com/questions/30855662/inline-html5-video-on-iphone
+    //  FIXME play audio and then seek video...
+    // this.refs.video.setAttribute('webkit-playsinline', '');
+    // makeVideoPlayableInline(this.refs.video)
   }
 
   componentWillUnmount() {
     window.cancelAnimationFrame(this.updateTick);
-    window.removeEventListener("keydown", this.handleTogglePlay);
-    window.removeEventListener("click", this.handleTogglePlay);
-    window.removeEventListener("touch", this.handleTogglePlay);
+    window.removeEventListener('keydown', this.handleTogglePlay);
+    window.removeEventListener('click', this.handleTogglePlay);
+    window.removeEventListener('touch', this.handleTogglePlay);
   }
 
   render() {
+    var fontFace = '';
 
-    if(this.state.isLoading) {
-      return (<p>loading...</p>);
+    if(this.state.font) {
+      var fontFace = `
+        @font-face {
+          font-family: "${this.state.font.name}";
+          src: url("${this.state.font.url}") format("opentype");
+          font-weight: normal;
+          font-style: normal;
+        }
+
+        .kfont {
+          font-family: "${this.state.font.name}";
+        }
+      `;
     }
 
-    // FIXME preload all the fonts
-    var fontFace = `
-      @font-face {
-        font-family: "${this.state.font.id}";
-        src: url("${this.state.font.url}") format("opentype");
-        font-weight: normal;
-        font-style: normal;
-      }
-
-      .kfont {
-        font-family: "${this.state.font.id}";
-      }
-    `;
+    if(this.isLoading()) {
+      return (
+        <div id="content" className={ styles.content }>
+          <style>
+            { fontFace }
+          </style>
+          <p>loading...</p>
+        </div>
+      );
+    }
 
     return (
-      <div className={ styles.content }>
+      <div id="content" className={ styles.content + ' kfont' }>
         <style>
-          {fontFace}
+          { fontFace }
         </style>
+
         <audio ref="masterAudio" className={ styles.audio }>
           <source src={ this.state.track.recording } type="video/mp4"/>
         </audio>
@@ -186,7 +202,7 @@ export default class KaraokePage extends React.Component {
             <source src={ this.state.track.recording } type="video/mp4"/>
             <track id="recording" kind="subtitles" src={ this.state.track.getSubtitlesUrl() } srcLang="en" label="English" default/>
         </video>
-        <div id="video-vtt" className={ 'kfont' }>
+        <div id="video-vtt">
           <VideoTrack/>
         </div>
       </div>
