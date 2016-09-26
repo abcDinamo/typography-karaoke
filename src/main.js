@@ -4,6 +4,7 @@
 
 // Polyfill
 import 'babel-polyfill';
+import FastClick from 'fastclick';
 
 // Libraries
 import React from 'react';
@@ -18,6 +19,8 @@ import './common/base.css';
 
 // ID of the DOM element to mount app on
 const DOM_APP_EL_ID = 'app';
+
+FastClick.attach(document.body);
 
 // Render the router
 ReactDOM.render((
