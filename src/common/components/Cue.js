@@ -67,12 +67,10 @@ class Cue extends React.Component {
     height = $measure.height();
 
     for (var i = 1; i < words.length; i++) {
-      // textSoFar + spaces[i] + words [i]
       var newText = textSoFar + words[i];
       $measure.text(newText);
 
       if($measure.height() > height) {
-        console.log('broke with', words[i], newText)
         $widther.text(currentLine);
         var lineWidth = $widther.width();
         var lineHeight = $widther.height();
@@ -148,8 +146,13 @@ class Cue extends React.Component {
       progress = 100;
     }
 
+    if(progress > 99) {
+      progress = 100;
+    }
+
+    progress = (Math.ceil(progress * 5) / 5).toFixed(2);
+
     var progressPercent = progress + '%';
-    // var lineProgressPercent = (Math.ceil(lineProgress * 5) / 5).toFixed(2)  + '%';
     var lines = this.getLinesCached(this.props.children);
     var totalWidth = lines[lines.length - 1].widthRange[1];
     var progressWidth = this.mapInRange(progress, 0, 100, 0, totalWidth);
