@@ -24,7 +24,7 @@ export default class KaraokePage extends React.Component {
     this.state = {
       track: track,
       font: font,
-      isPlaying: true,
+      isPlaying: false,
       trackIsLoaded: !!track,
       fontIsLoaded: false,
       cues: {},
@@ -51,9 +51,11 @@ export default class KaraokePage extends React.Component {
   togglePlay(toState = null) {
     var toggleState = toState === null ? !this.state.isPlaying : toState;
     var toggleMethod = toggleState ? 'play' : 'pause';
+    var overlayMethod = toggleState ? 'addClass' : 'removeClass';
 
     // only change the state if we can change the element's state
     if(this.refs.audio) {
+      $(this.refs.overlay)[overlayMethod]('hide');
       this.refs.audio[toggleMethod]();
       this.setState({
         isPlaying: !this.refs.audio.paused
@@ -91,6 +93,7 @@ export default class KaraokePage extends React.Component {
 
     this.setState(updates);
 
+    // FIXME maybe avoid doing the above work by checking isPlaying earlier
     if(updates.activeCue && this.state.isPlaying) {
       ReactDom.render(<VideoTrack data={ ReactVTT.separate(this.state.activeCue) } currentTime={ this.state.currentTime } color={ this.state.font.color }/>, document.getElementById('video-vtt'));
     }
@@ -110,7 +113,6 @@ export default class KaraokePage extends React.Component {
         cues: videoCues
       });
       self.updateTick = requestAnimationFrame(self.updateKaraoke);
-      self.play();
     });
   }
 
@@ -126,13 +128,13 @@ export default class KaraokePage extends React.Component {
     this.setState({
       track: track,
       font: font,
-      isPlaying: true,
       trackIsLoaded: !!track
     });
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return !_.isEqual(this.state.track, nextState.track) || this.isLoading() !== this.isLoading(nextState);
+    return !_.isEqual(this.state.track, nextState.track)
+      || this.isLoading() !== this.isLoading(nextState);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -141,9 +143,9 @@ export default class KaraokePage extends React.Component {
 
   componentDidMount() {
     var self = this;
-    var $window = $(window);
+    var $document = $(document);
 
-    $window.on('keydown click touch', this.handleTogglePlay);
+    $document.on('keydown click touch', this.handleTogglePlay);
 
     // wait for our font to load and then update when it has
     // pretty hacky
@@ -164,14 +166,15 @@ export default class KaraokePage extends React.Component {
   }
 
   componentWillUnmount() {
-    var $window = $(window);
+    var $document = $(document);
 
     window.cancelAnimationFrame(this.updateTick);
-    $window.off('keydown click touch');
+    $document.off('keydown click touch');
   }
 
   render() {
     var fontFace = '';
+    var overlay = (<div ref="overlay" className={ styles.description }>loading...</div>);
 
     if(this.state.font) {
       var fontFace = `
@@ -186,6 +189,15 @@ export default class KaraokePage extends React.Component {
           font-family: "${this.state.font.name}";
         }
       `;
+
+      overlay = (
+        <div ref="overlay" className={ styles.description }>
+          <p>
+            { this.state.font.description }
+            <a href="javascript:;">Play { this.state.font.name }</a>
+          </p>
+        </div>
+      );
     }
 
     if(this.isLoading()) {
@@ -194,7 +206,7 @@ export default class KaraokePage extends React.Component {
           <style>
             { fontFace }
           </style>
-          <p>loading...</p>
+          { overlay }
         </div>
       );
     }
@@ -212,6 +224,7 @@ export default class KaraokePage extends React.Component {
             <source src={ this.state.track.recording } type="video/mp4"/>
             <track id="cues" kind="subtitles" src={ this.state.track.getSubtitlesUrl() } srcLang="en" label="English" default/>
         </video>
+        { overlay }
         <div id="video-vtt">
           <VideoTrack/>
         </div>
