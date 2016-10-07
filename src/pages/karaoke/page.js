@@ -220,6 +220,7 @@ export default class KaraokePage extends React.Component {
           <style>
             { fontFace }
           </style>
+          <IndexLink id="back" className={ styles.back } to="/"></IndexLink>
           { overlay }
         </div>
       );

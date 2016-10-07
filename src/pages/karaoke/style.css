@@ -55,6 +55,7 @@
   font-size: 36px;
   z-index: 3;
   display: block;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 }
 
 .back:before {
