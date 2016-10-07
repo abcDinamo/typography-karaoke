@@ -4,6 +4,7 @@ import FontFaceObserver from 'fontfaceobserver';
 
 import React from 'react';
 import ReactDom from 'react-dom';
+import { IndexLink } from 'react-router';
 import ReactVTT from 'react-vtt';
 import Cue from 'react-vtt';
 
@@ -72,6 +73,13 @@ export default class KaraokePage extends React.Component {
   }
 
   handleTogglePlay(event) {
+    var $target = $(event.target);
+
+    // if we're trying to go back, don't toggle play
+    if ($target.attr('id') === 'back') {
+      return;
+    }
+
     if (event.which === CLICK || event.which === SPACE) {
       this.togglePlay();
     }
@@ -82,6 +90,12 @@ export default class KaraokePage extends React.Component {
   }
 
   updateKaraoke() {
+    // we can't do anything with no audio element
+    if (!this.refs.audio) {
+      console.warn('no audio to update karaoke');
+      return;
+    }
+
     var updates = {
       currentTime: this.refs.audio.currentTime
     };
@@ -194,7 +208,7 @@ export default class KaraokePage extends React.Component {
         <div ref="overlay" className={ styles.description }>
           <p>
             { this.state.font.description }
-            <a href="javascript:;">Play { this.state.font.name }</a>
+            <a className={ styles.toggle } href="javascript:;">Test { this.state.font.name }</a>
           </p>
         </div>
       );
@@ -216,7 +230,7 @@ export default class KaraokePage extends React.Component {
         <style>
           { fontFace }
         </style>
-
+        <IndexLink id="back" className={ styles.back } to="/"></IndexLink>
         <audio ref="audio" className={ styles.audio }>
           <source src={ this.state.track.recording } type="video/mp4"/>
         </audio>

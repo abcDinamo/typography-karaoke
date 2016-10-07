@@ -26,6 +26,7 @@
   background-color: black;
   opacity: 1;
   transition: 200ms opacity, 200ms z-index;
+  cursor: pointer;
 }
 
 :global(.hide) {
@@ -45,19 +46,44 @@
   height: 100%;
 }
 
+.back {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50px;
+  height: 55px;
+  font-size: 36px;
+  z-index: 3;
+  display: block;
+}
+
+.back:before {
+  content: "✕";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 0;
+}
+
 .description p {
   max-width: 50%;
 }
 
-.description a {
-  margin-top: 1em;
+.description .toggle {
+  margin-top: 2em;
   display: block;
 }
 
 @media (max-width: 600px) {
 
+  .back,
   .description {
     font-size: 18px;
+  }
+
+  .back {
+    width: 30px;
+    height: 35px;
   }
 
   .description p {

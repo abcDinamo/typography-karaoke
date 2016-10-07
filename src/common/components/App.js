@@ -1,6 +1,8 @@
 import React from 'react';
 import fontStore from '../store/FontStore';
 import trackStore from '../store/TrackStore';
+import { RouteTransition } from 'react-router-transition';
+import spring from 'react-motion/lib/spring';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -32,7 +34,14 @@ export default class App extends React.Component {
 
     return (
       <div id="container">
-        { childrenWithProps }
+        <RouteTransition
+          pathname={this.props.location.pathname}
+          atEnter={{ opacity: 0 }}
+          atLeave={{ opacity: spring(0, { stiffness: 200, damping: 22 }) }}
+          atActive={{ opacity: spring(1, { stiffness: 200, damping: 22 }) }}
+        >
+          { childrenWithProps }
+        </RouteTransition>
       </div>
     );
   }
