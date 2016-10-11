@@ -2,16 +2,22 @@ import React from 'react';
 import ReactDom from 'react-dom';
 import { Link } from 'react-router';
 import _ from 'lodash';
+import $ from 'jquery';
 
 import styles from "./style.css";
 
-export default class HomePage extends React.Component {
+export default class TestPage0 extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
       fonts: this.props.fontStore.fonts
     };
+  }
+
+  componentWillMount() {
+    console.log($('body'))
+    $('body').attr('class', '').addClass('test0');
   }
 
   render() {
@@ -28,7 +34,7 @@ export default class HomePage extends React.Component {
     });
 
     return (
-      <div id="content">
+      <div>
         <ul className={ styles.directory }>
           { fontItems }
         </ul>
