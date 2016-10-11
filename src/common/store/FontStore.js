@@ -1,5 +1,4 @@
 import _ from 'lodash';
-import mColors from 'material-colors';
 
 import Font from './Font';
 import client from './Contentful';
