@@ -27,19 +27,7 @@ class FontStore {
   }
 }
 
-var colors = _.transform(mColors, function(result, value, key) {
-  if(key.indexOf('Text') >= 0
-    || key.indexOf('black') >= 0
-    || key.indexOf('white') >= 0
-    || key.indexOf('Icons') >= 0
-    || key.indexOf('grey') >= 0) {
-    return result;
-  }
-
-  result.push(value['300']);
-}, []);
-
-colors = _.shuffle(colors);
+var colors = _.shuffle(['#00bcff', '#ff8200', '#ffd400', '#1865ff', '#ffaedd', '#3fa535', '#690041', '#ff372b']);
 var fontStore = new FontStore();
 
 client.getEntries({ content_type: 'font' })
