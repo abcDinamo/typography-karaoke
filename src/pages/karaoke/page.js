@@ -14,6 +14,7 @@ import styles from './style.css';
 
 const CLICK = 1;
 const SPACE = 32;
+const ESC = 27;
 
 export default class KaraokePage extends React.Component {
   constructor(props) {
@@ -80,8 +81,16 @@ export default class KaraokePage extends React.Component {
       return;
     }
 
-    if (event.which === CLICK || event.which === SPACE) {
-      this.togglePlay();
+    switch (event.which) {
+      case CLICK:
+        this.togglePlay();
+        break;
+      case SPACE:
+        this.togglePlay();
+        break;
+      case ESC:
+        $('#back')[0].click();
+        break;
     }
   }
 
@@ -159,7 +168,7 @@ export default class KaraokePage extends React.Component {
     var self = this;
     var $document = $(document);
 
-    $document.on('keydown click touch', this.handleTogglePlay);
+    $document.on('keyup click touch', this.handleTogglePlay);
 
     // wait for our font to load and then update when it has
     // pretty hacky
@@ -183,7 +192,7 @@ export default class KaraokePage extends React.Component {
     var $document = $(document);
 
     window.cancelAnimationFrame(this.updateTick);
-    $document.off('keydown click touch');
+    $document.off('keyup click touch');
   }
 
   render() {
