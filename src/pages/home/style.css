@@ -3,6 +3,10 @@
   margin: 0;
   padding: 0;
   text-align: left;
+
+  @media (max-width: 600px) {
+    font-size: 28px;
+  }
 }
 
 .directory li {
