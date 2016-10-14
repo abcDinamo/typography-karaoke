@@ -32,7 +32,13 @@ var fontStore = new FontStore();
 client.getEntries({ content_type: 'font' })
 .then(function (entries) {
   entries.items.forEach(function (entry, index) {
-    fontStore.addFont(new Font(entry.sys.id, entry.fields.name, entry.fields.description, entry.fields.sources[0].fields.file.url, colors[index]));
+
+    // make sure the next set is random
+    if(index === colors.length) {
+      colors = _.shuffle(colors);
+    }
+
+    fontStore.addFont(new Font(entry.sys.id, entry.fields.name, entry.fields.description, entry.fields.sources[0].fields.file.url, colors[index % colors.length]));
   });
 });
 
