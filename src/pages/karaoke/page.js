@@ -42,7 +42,6 @@ export default class KaraokePage extends React.Component {
   }
 
   fetchTrack() {
-    // return this.props.trackStore.getTrackByName("If You're Happy and You Know It");
     return this.props.trackStore.tracks.length ? this.props.trackStore.getRandom() : null;
   }
 

@@ -19,6 +19,7 @@ export default class App extends React.Component {
 
   onAdd(thing) {
     // every time a new thing is addded, propagate the changes down
+    // FIXME probably shouldn't do this every time
     this.setState({
       fontStore: fontStore,
       trackStore: trackStore

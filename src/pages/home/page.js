@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDom from 'react-dom';
 import { Link } from 'react-router';
 import _ from 'lodash';
+import client from '../../common/store/Contentful';
 
 import styles from "./style.css";
 
@@ -9,9 +10,24 @@ export default class HomePage extends React.Component {
   constructor(props) {
     super(props);
 
+    var self = this;
+
     this.state = {
-      fonts: this.props.fontStore.fonts
+      fonts: this.props.fontStore.fonts,
+      content: ''
     };
+
+    client.getEntries({
+      'content_type': 'page',
+      'fields.title': 'Home'
+    })
+    .then(function (entries) {
+      var content = _.get(entries, 'items[0].fields.content');
+      self.setState({ content });
+    })
+    .catch(function(error) {
+      console.error(error);
+    });
   }
 
   render() {
@@ -32,11 +48,9 @@ export default class HomePage extends React.Component {
         <ul className={ styles.directory }>
           { fontItems }
         </ul>
-        <address>
-          <p>Standard Typefaces Int'l</p>
-          <p>For inquiries please contact</p>
-          <a target="_blank" href="mailto:mail@standardtype.xyz">mail@standardtype.xyz</a>
-        </address>
+        <div className={ styles['page-content'] }>
+          { this.state.content }
+        </div>
       </div>
     );
   }
