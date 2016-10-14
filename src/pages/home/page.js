@@ -48,8 +48,7 @@ export default class HomePage extends React.Component {
         <ul className={ styles.directory }>
           { fontItems }
         </ul>
-        <div className={ styles['page-content'] }>
-          { this.state.content }
+        <div className={ styles['page-content'] } dangerouslySetInnerHTML={{__html: this.state.content}}>
         </div>
       </div>
     );

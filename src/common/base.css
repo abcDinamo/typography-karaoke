@@ -1,3 +1,13 @@
+::selection {
+  background: white;
+  color: black;
+}
+
+::-moz-selection {
+  background: white;
+  color: black;
+}
+
 * {
   box-sizing: border-box;
 }
