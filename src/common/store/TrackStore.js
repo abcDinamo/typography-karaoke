@@ -5,10 +5,6 @@ import client from './Contentful';
 
 var path = "";
 
-if(window.location.href.indexOf('github') >= 0) {
-  path = path + '/typography-karaoke/';
-}
-
 class TrackStore {
   constructor() {
     this.tracks = [];
@@ -42,7 +38,7 @@ var trackStore = new TrackStore();
 client.getEntries({ content_type: 'audio' })
 .then(function (entries) {
   entries.items.forEach(function (entry, index) {
-    var subtitlesDataURI = 'data:text/vtt;base64,' + btoa(unescape(encodeURIComponent(entry.fields.subtitles)))
+    var subtitlesDataURI = 'data:text/vtt;base64,' + btoa(unescape(encodeURIComponent(entry.fields.subtitles)));
     trackStore.addTrack(new Track(entry.sys.id, entry.fields.name, entry.fields.track.fields.file.url, subtitlesDataURI));
   });
 });

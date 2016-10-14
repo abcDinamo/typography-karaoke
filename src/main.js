@@ -25,10 +25,6 @@ FastClick.attach(document.body);
 
 var basePath = '/';
 
-if(window.location.href.indexOf('github') >= 0) {
-  basePath = basePath + 'typography-karaoke/';
-}
-
 const browserHistory = useRouterHistory(createHistory)({
   basename: basePath
 });
