@@ -3,6 +3,7 @@ import ReactDom from 'react-dom';
 import { Link } from 'react-router';
 import _ from 'lodash';
 import client from '../../common/store/Contentful';
+import marked from 'marked';
 
 import styles from "./style.css";
 
@@ -22,7 +23,9 @@ export default class HomePage extends React.Component {
       'fields.title': 'Home'
     })
     .then(function (entries) {
+
       var content = _.get(entries, 'items[0].fields.content');
+      console.log(content)
       self.setState({ content });
     })
     .catch(function(error) {
@@ -48,7 +51,7 @@ export default class HomePage extends React.Component {
         <ul className={ styles.directory }>
           { fontItems }
         </ul>
-        <div className={ styles['page-content'] } dangerouslySetInnerHTML={{__html: this.state.content}}>
+        <div className={ styles['page-content'] } dangerouslySetInnerHTML={{__html: marked(this.state.content)}}>
         </div>
       </div>
     );
