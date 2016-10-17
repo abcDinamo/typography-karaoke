@@ -32,7 +32,7 @@ body {
   height: 100%;
   cursor: default;
 
-  @media (max-width: 600px) {
+  @media (max-width: 740px) {
     padding: 20px;
   }
 }

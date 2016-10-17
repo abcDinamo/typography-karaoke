@@ -75,7 +75,7 @@
   display: block;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 740px) {
 
   .back,
   .description {
@@ -93,7 +93,7 @@
   }
 
   .content {
-    font-size: 42px;
+    font-size: 40px;
   }
 }
 
