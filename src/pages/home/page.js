@@ -23,9 +23,7 @@ export default class HomePage extends React.Component {
       'fields.title': 'Home'
     })
     .then(function (entries) {
-
       var content = _.get(entries, 'items[0].fields.content');
-      console.log(content)
       self.setState({ content });
     })
     .catch(function(error) {
