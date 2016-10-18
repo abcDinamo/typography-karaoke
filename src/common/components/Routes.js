@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, IndexRoute } from 'react-router';
+import { Route, IndexRoute, Redirect } from 'react-router';
 
 import App from './App';
 import HomePage from '../../pages/home/page';
@@ -13,6 +13,7 @@ export default (
     <Route path="test0" component={TestPage0} />
     <Route path="test1" component={TestPage1} />
     <Route path="karaoke/:id" component={KaraokePage} />
+    <Redirect from='*' to='/'/>
   </Route>
 );
 
