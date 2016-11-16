@@ -4,6 +4,7 @@
 
 // Polyfill
 import 'babel-polyfill';
+import 'autotrack';
 import FastClick from 'fastclick';
 
 // Libraries

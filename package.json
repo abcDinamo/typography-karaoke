@@ -52,6 +52,7 @@
     "webpack-dev-server": "^1.14.1"
   },
   "dependencies": {
+    "autotrack": "^1.0.3",
     "babel-core": "^6.5.2",
     "babel-polyfill": "^6.5.0",
     "babel-runtime": "^6.5.0",
