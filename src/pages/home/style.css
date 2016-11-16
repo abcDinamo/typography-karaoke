@@ -59,24 +59,42 @@
 
 .page-content {
   font-style: normal;
-  padding-bottom: 50px;
   font-size: 30px;
-  white-space: pre-wrap;
-  -webkit-column-count: 2;
-  -moz-column-count: 2;
-  column-count: 2;
-  -webkit-column-gap: 50px;
-  -moz-column-gap: 50px;
-  column-gap: 50px;
+  padding-bottom: calc(50px - 1em);
+
+  &:before,
+  &:after {
+    content: " ";
+    display: table;
+  }
+  &:after {
+    clear: both;
+  }
+
+  p {
+    width: 50%;
+    float: left;
+    margin-bottom: 1em;
+  }
+
+  p:first-child {
+    padding-right: 25px;
+  }
+
+  p:not(:first-child) {
+    padding-left: 25px;
+  }
 
   @media (max-width: 740px) {
-    padding-bottom: 20px;
+    padding-bottom: calc(20px - 1em);
     font-size: 20px;
-    -webkit-column-count: 1;
-    -moz-column-count: 1;
-    column-count: 1;
-    -webkit-column-gap: 0;
-    -moz-column-gap: 0;
-    column-gap: 0;
+
+    p,
+    p:first-child,
+    p:not(:first-child) {
+      padding: 0;
+      width: 100%;
+    }
+
   }
 }
