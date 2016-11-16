@@ -42,7 +42,15 @@ export default class KaraokePage extends React.Component {
   }
 
   fetchTrack() {
-    return this.props.trackStore.tracks.length ? this.props.trackStore.getRandom() : null;
+    if(!this.props.trackStore.tracks.length) {
+      return null;
+    }
+
+    if(this.props.location.query.track) {
+      return this.props.trackStore.getTrackByName(this.props.location.query.track);
+    }
+
+    return this.props.trackStore.getRandom();
   }
 
   fetchFont() {

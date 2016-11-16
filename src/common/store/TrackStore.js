@@ -28,7 +28,6 @@ class TrackStore {
   }
 
   getTrackByName(name) {
-    // FIXME for now this works because it's just 3 things
     return _.find(this.tracks, ['name', name]);
   }
 }
