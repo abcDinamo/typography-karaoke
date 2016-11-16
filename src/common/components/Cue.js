@@ -57,7 +57,7 @@ class Cue extends React.Component {
 
     // find the tallest min-height
     // some sources say this is the tallest character
-    $measure.text('ƒ');
+    $measure.text('(fg');
     var minHeight = $measure.height();
     $measure.css('min-height', minHeight + 'px')
 
