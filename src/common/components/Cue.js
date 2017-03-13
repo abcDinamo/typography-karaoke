@@ -118,6 +118,7 @@ class Cue extends React.Component {
 
   handleResize(event) {
     this.lineCache = {};
+    this.render()
   }
 
   componentDidMount() {
@@ -164,10 +165,10 @@ class Cue extends React.Component {
         return (
           <svg className={ styles.cueText } key={ index } width={ line.width } height={ line.height } textRendering="geometricPrecision" shapeRendering="geometricPrecision">
             <pattern id={ patternId } patternUnits="userSpaceOnUse" height={ line.height } width="100%">
-              <rect style={{fill: self.props.color}} x="0" y="0" height="100" width={ lineProgressPercent }></rect>
-              <rect style={{fill: '#fff'}} x={ lineProgressPercent } y="0" height="100" width="100%"></rect>
+              <rect style={{fill: self.props.color}} x="0" y="0" height="100%" width={ lineProgressPercent }></rect>
+              <rect style={{fill: '#fff'}} x={ lineProgressPercent } y="0" height="100%" width="100%"></rect>
             </pattern>
-            <text x="0" y="50%" dominantBaseline="central" style={{ fill: 'url(#' + patternId + ')' }}>{ line.text }</text>
+            <text x="0" y="50%" dominantBaseline="middle" style={{ fill: 'url(#' + patternId + ')' }}>{ line.text }</text>
           </svg>
         );
     });
