@@ -5,9 +5,8 @@ import FontFaceObserver from 'fontfaceobserver';
 import React from 'react';
 import ReactDom from 'react-dom';
 import { IndexLink } from 'react-router';
-import ReactVTT from 'react-vtt';
-import Cue from 'react-vtt';
 
+import ReactVTT from '../../common/components/ReactVTT';
 import VideoTrack from '../../common/components/VideoTrack';
 
 import styles from './style.css';
