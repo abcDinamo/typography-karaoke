@@ -68,6 +68,6 @@
     "react-dom": "^15.0.1",
     "react-router": "^2.0.0",
     "url-loader": "^0.5.7",
-    "vtt.js": "^0.13.0"
+    "vtt.js": "git+https://github.com/jsg2021/vtt.js.git#patch-1"
   }
 }
