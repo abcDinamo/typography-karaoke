@@ -3,6 +3,12 @@
   font-size: 82px;
 }
 
+@media (min-width: 2048px) {
+  .content {
+    font-size: 164px;
+  }
+}
+
 .video {
   display: none;
   visibility: hidden;
@@ -66,6 +72,14 @@
   z-index: 0;
 }
 
+@media (min-width: 2048px) {
+  .back {
+    font-size: 72px;
+    width: 90px;
+    height: 100px;
+  }
+}
+
 .description p {
   max-width: 50%;
 }
@@ -73,6 +87,19 @@
 .description .toggle {
   margin-top: 2em;
   display: block;
+}
+
+@media (min-width: 2048px) {
+  .description {
+    font-size: 72px;
+  }
+}
+
+@media (max-width: 960px) {
+  .description p {
+    padding: 0 30px;
+    max-width: none;
+  }
 }
 
 @media (max-width: 740px) {

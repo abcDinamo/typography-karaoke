@@ -18,6 +18,16 @@
   margin-bottom: 50px;
   position: relative;
 
+  @media (min-width: 2048px) {
+    width: calc(50% - 50px);
+    margin-bottom: 100px;
+  }
+
+  @media (max-width: 960px) {
+    margin-bottom: 30px;
+    width: calc(50% - 15px);
+  }
+
   @media (max-width: 740px) {
     width: 100%;
     margin-left: 0 !important;
@@ -29,10 +39,26 @@
 
 .directory li:nth-child(2n) {
   margin-left: 25px;
+
+  @media (min-width: 2048px) {
+    margin-left: 50px;
+  }
+
+  @media (max-width: 960px) {
+    margin-left: 15px;
+  }
 }
 
 .directory li:nth-child(2n + 1) {
   margin-right: 25px;
+
+  @media (min-width: 2048px) {
+    margin-right: 50px;
+  }
+
+  @media (max-width: 960px) {
+    margin-right: 15px;
+  }
 }
 
 .directory li a {
@@ -62,6 +88,10 @@
   font-size: 30px;
   padding-bottom: calc(50px - 1em);
 
+  @media (min-width: 2048px) {
+    font-size: 72px;
+  }
+
   &:before,
   &:after {
     content: " ";
@@ -79,10 +109,26 @@
 
   p:first-child {
     padding-right: 25px;
+
+    @media (min-width: 2048px) {
+      padding-right: 50px;
+    }
+
+    @media (max-width: 960px) {
+      padding-right: 15px;
+    }
   }
 
   p:not(:first-child) {
     padding-left: 25px;
+
+    @media (min-width: 2048px) {
+      padding-left: 50px;
+    }
+
+    @media (max-width: 960px) {
+      padding-left: 15px;
+    }
   }
 
   @media (max-width: 740px) {

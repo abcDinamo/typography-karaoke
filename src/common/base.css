@@ -32,6 +32,18 @@ body {
   height: 100%;
   cursor: default;
 
+  /* iMac 4k */
+  @media (min-width: 2048px) {
+    font-size: 72px;
+    padding: 100px;
+  }
+
+  /* iPad */
+  @media (max-width: 960px) {
+    padding: 30px;
+  }
+
+  /* Mobile */
   @media (max-width: 740px) {
     padding: 20px;
   }
