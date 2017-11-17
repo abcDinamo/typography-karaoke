@@ -38,7 +38,7 @@ client.getEntries({ content_type: 'audio' })
 .then(function (entries) {
   entries.items.forEach(function (entry, index) {
     var subtitlesDataURI = 'data:text/vtt;base64,' + btoa(unescape(encodeURIComponent(entry.fields.subtitles)));
-    trackStore.addTrack(new Track(entry.sys.id, entry.fields.name, entry.fields.track.fields.file.url, subtitlesDataURI));
+    trackStore.addTrack(new Track(entry.sys.id, entry.fields.name, entry.fields.track.fields.file.url, entry.fields.track.fields.file.contentType,  subtitlesDataURI));
   });
 });
 

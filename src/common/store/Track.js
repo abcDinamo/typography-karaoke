@@ -1,9 +1,10 @@
 class Track {
 
-  constructor(id, name, recording, subtitles) {
+  constructor(id, name, recording, contentType, subtitles) {
     this.id = id;
     this.name = name;
     this.recording = recording;
+    this.contentType = contentType;
     this.subtitles = subtitles;
     this.subtitlesUrl = null;
   }

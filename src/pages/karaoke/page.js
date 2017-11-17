@@ -248,10 +248,10 @@ export default class KaraokePage extends React.Component {
         </style>
         <IndexLink id="back" className={ styles.back } to="/"></IndexLink>
         <audio ref="audio" className={ styles.audio }>
-          <source src={ this.state.track.recording } type="video/mp4"/>
+          <source src={ this.state.track.recording } type={ this.state.track.contentType }/>
         </audio>
         <video ref="video" className={ styles.video }>
-            <source src={ this.state.track.recording } type="video/mp4"/>
+            <source src={ this.state.track.recording } type={ this.state.track.contentType }/>
             <track id="cues" kind="subtitles" src={ this.state.track.getSubtitlesUrl() } srcLang="en" label="English" default/>
         </video>
         { overlay }
